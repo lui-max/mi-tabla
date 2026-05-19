@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/mi-tabla/static/js/main.7acd5e80.js",
+    "main.js": "/mi-tabla/static/js/main.bff9e773.js",
     "index.html": "/mi-tabla/index.html",
-    "main.7acd5e80.js.map": "/mi-tabla/static/js/main.7acd5e80.js.map"
+    "main.bff9e773.js.map": "/mi-tabla/static/js/main.bff9e773.js.map"
   },
   "entrypoints": [
-    "static/js/main.7acd5e80.js"
+    "static/js/main.bff9e773.js"
   ]
 }
