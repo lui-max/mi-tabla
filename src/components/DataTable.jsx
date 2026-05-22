@@ -221,3 +221,32 @@ useEffect(() => {localStorage.setItem("obs", JSON.stringify(obs));}, [obs]);
     </div>
   );
 }
+
+{/* BOTONES FIREBASE */}
+<div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10,marginBottom:10}}>
+  <button
+    onClick={async () => {
+      const { db } = await import("../firebase");
+      const { collection, addDoc, serverTimestamp } = await import("firebase/firestore");
+      await addDoc(collection(db, "registros"), {
+        fecha, encargado, talonarios, juegos, obs,
+        totalTickets, totalImporte,
+        yape: yape.toFixed(2),
+        queda,
+        creadoAt: serverTimestamp()
+      });
+      alert("✅ Registro guardado");
+    }}
+    style={{padding:"12px",background:"#16a34a",color:"#fff",border:"none",fontWeight:700,fontFamily:"'Courier New',monospace",cursor:"pointer",borderRadius:4,fontSize:13,boxShadow:"3px 3px 0 #14532d"}}
+  >
+    💾 GUARDAR DÍA
+  </button>
+  <button
+    onClick={() => onVerHistorial()}
+    style={{padding:"12px",background:"#1a1a2e",color:"#fff",border:"none",fontWeight:700,fontFamily:"'Courier New',monospace",cursor:"pointer",borderRadius:4,fontSize:13,boxShadow:"3px 3px 0 #000"}}
+  >
+    📋 HISTORIAL
+  </button>
+</div>
+<button onClick={()=>{
+  if(window.confirm("¿Borrar todos los datos del día?")) limpiarTodo();
