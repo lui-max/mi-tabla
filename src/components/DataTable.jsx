@@ -2,31 +2,31 @@ import { useState, useEffect } from "react";
 
 const filaVacia = () => ({ a: "", b: "", c: "" });
 
-export default function DataTable() {
-  const [fecha, setFecha] = useState(() => localStorage.getItem("fecha")|| "");
+export default function DataTable({ onVerHistorial }) {
+  const [fecha, setFecha] = useState(() => localStorage.getItem("fecha") || "");
   const [encargado, setEncargado] = useState(() => localStorage.getItem("encargado") || "");
-  const [talonarios, setTalonarios] = useState(() =>{
+  const [talonarios, setTalonarios] = useState(() => {
     const g = localStorage.getItem("talonarios");
     return g ? JSON.parse(g) : [filaVacia(), filaVacia(), filaVacia()];
   });
   const [juegos, setJuegos] = useState(() => {
     const g = localStorage.getItem("juegos");
     return g ? JSON.parse(g) : [
-    { juego: "MIXTO",     responsable: "Luis",  tickets: "", tickets6: "" },
-    { juego: "LABERINTO", responsable: "Yonny", tickets: "", tickets6: "" },
-    { juego: "SALTARINA", responsable: "Yonny", tickets: "", tickets6: "" },
-  ];
-});
+      { juego: "MIXTO",     responsable: "Luis",  tickets: "", tickets6: "" },
+      { juego: "LABERINTO", responsable: "Yonny", tickets: "", tickets6: "" },
+      { juego: "SALTARINA", responsable: "Yonny", tickets: "", tickets6: "" },
+    ];
+  });
   const [obs, setObs] = useState(() => {
     const g = localStorage.getItem("obs");
     return g ? JSON.parse(g) : [{ a: "", b: "" }, { a: "", b: "" }];
-});
+  });
 
-useEffect(() => {localStorage.setItem("fecha",fecha);},[fecha]);
-useEffect(() => {localStorage.setItem("encargado",encargado);},[encargado]);
-useEffect(() => {localStorage.setItem("talonarios", JSON.stringify(talonarios));}, [talonarios]);
-useEffect(() => {localStorage.setItem("juegos", JSON.stringify(juegos));}, [juegos]);
-useEffect(() => {localStorage.setItem("obs", JSON.stringify(obs));}, [obs]);
+  useEffect(() => { localStorage.setItem("fecha", fecha); }, [fecha]);
+  useEffect(() => { localStorage.setItem("encargado", encargado); }, [encargado]);
+  useEffect(() => { localStorage.setItem("talonarios", JSON.stringify(talonarios)); }, [talonarios]);
+  useEffect(() => { localStorage.setItem("juegos", JSON.stringify(juegos)); }, [juegos]);
+  useEffect(() => { localStorage.setItem("obs", JSON.stringify(obs)); }, [obs]);
 
   const actualizarTalonario = (i, campo, valor) => {
     const n = [...talonarios]; n[i] = { ...n[i], [campo]: valor }; setTalonarios(n);
@@ -39,6 +39,19 @@ useEffect(() => {localStorage.setItem("obs", JSON.stringify(obs));}, [obs]);
   };
   const actualizarObs = (i, campo, valor) => {
     const n = [...obs]; n[i] = { ...n[i], [campo]: valor }; setObs(n);
+  };
+
+  const limpiarTodo = () => {
+    localStorage.clear();
+    setFecha("");
+    setEncargado("");
+    setTalonarios([filaVacia(), filaVacia(), filaVacia()]);
+    setJuegos([
+      { juego: "MIXTO",     responsable: "Luis",  tickets: "", tickets6: "" },
+      { juego: "LABERINTO", responsable: "Yonny", tickets: "", tickets6: "" },
+      { juego: "SALTARINA", responsable: "Yonny", tickets: "", tickets6: "" },
+    ]);
+    setObs([{ a: "", b: "" }, { a: "", b: "" }]);
   };
 
   const calcTal = (t) => {
@@ -67,7 +80,6 @@ useEffect(() => {localStorage.setItem("obs", JSON.stringify(obs));}, [obs]);
     secTitle: { fontSize:10, fontWeight:700, background:"#1a1a2e", color:"#fff", padding:"4px 10px", display:"block", letterSpacing:"0.08em" },
     label: { fontSize:10, fontWeight:700, color:"#888", marginBottom:2 },
     inp: { border:"none", borderBottom:"1px solid #bbb", background:"transparent", fontFamily:"'Courier New',monospace", outline:"none", color:"#1a1a2e", width:"100%", padding:"2px 0", fontSize:14, fontWeight:700 },
-    val: { fontSize:15, fontWeight:700, color:"#1a1a2e" },
   };
 
   return (
@@ -85,8 +97,6 @@ useEffect(() => {localStorage.setItem("obs", JSON.stringify(obs));}, [obs]);
             <input value={encargado} onChange={e=>setEncargado(e.target.value)} placeholder="Nombre" style={{...s.inp}} />
           </div>
         </div>
-
-        {/* TALONARIOS */}
         <span style={s.secTitle}>TALONARIOS COSTA</span>
         {talonarios.map((t, i) => {
           const total = calcTal(t);
@@ -106,7 +116,7 @@ useEffect(() => {localStorage.setItem("obs", JSON.stringify(obs));}, [obs]);
               </div>
               <div style={{textAlign:"center", minWidth:36}}>
                 <div style={s.label}>TOTAL</div>
-                <span style={{fontSize:14, fontWeight:700, color: total!==null?(coincide?"#16a34a":"#1a1a2e"):"#aaa"}}>
+                <span style={{fontSize:14, fontWeight:700, color:total!==null?(coincide?"#16a34a":"#1a1a2e"):"#aaa"}}>
                   {total !== null ? total : "-"}
                 </span>
               </div>
@@ -117,14 +127,11 @@ useEffect(() => {localStorage.setItem("obs", JSON.stringify(obs));}, [obs]);
 
       {/* JUEGOS */}
       <div style={s.card}>
-        {/* ENCABEZADO: 5 columnas */}
         <div style={{display:"grid", gridTemplateColumns:"1fr 1fr 55px 55px 75px", background:"#1a1a2e"}}>
           {["JUEGO","RESPONSABLE","T×7","T×6","IMPORTE"].map(h=>(
             <div key={h} style={{fontSize:9, fontWeight:700, color:"#fff", padding:"5px 6px", borderRight:"1px solid #333", textAlign:"center"}}>{h}</div>
           ))}
         </div>
-
-        {/* FILAS: 5 columnas */}
         {juegos.map((row, i) => {
           const t7 = parseInt(row.tickets) || 0;
           const t6 = parseInt(row.tickets6) || 0;
@@ -151,8 +158,6 @@ useEffect(() => {localStorage.setItem("obs", JSON.stringify(obs));}, [obs]);
             </div>
           );
         })}
-
-        {/* FILAS VACÍAS */}
         {[0,1].map(i=>(
           <div key={"e"+i} style={{display:"grid", gridTemplateColumns:"1fr 1fr 55px 55px 75px", borderBottom:"1px solid #eee"}}>
             <div style={{padding:"10px 6px", borderRight:"1px solid #eee"}}></div>
@@ -162,8 +167,6 @@ useEffect(() => {localStorage.setItem("obs", JSON.stringify(obs));}, [obs]);
             <div></div>
           </div>
         ))}
-
-        {/* TOTAL ROW */}
         <div style={{display:"grid", gridTemplateColumns:"1fr 1fr 55px 55px 75px", background:"#f1f5f9", borderTop:"2px solid #1a1a2e"}}>
           <div style={{padding:"6px 6px", fontSize:10, fontWeight:700, color:"#888", gridColumn:"1/3"}}>TOTAL</div>
           <div style={{padding:"6px 4px", fontSize:13, fontWeight:700, textAlign:"center", borderLeft:"1px solid #ccc", color:coincide?"#16a34a":"#1a1a2e"}}>{totalTickets7||""}</div>
@@ -209,44 +212,53 @@ useEffect(() => {localStorage.setItem("obs", JSON.stringify(obs));}, [obs]);
           </div>
           <div style={{padding:"10px 8px", borderRight:"1px solid #eee", textAlign:"center"}}>
             <div style={s.label}>YAPE</div>
-            <div style={{fontSize:16, fontWeight:700, color:"#1a1a2e"}}>S/{calcObs(obs[1])}</div>
+            <div style={{fontSize:16, fontWeight:700, color:"#1a1a2e"}}>S/{yape.toFixed(2)}</div>
           </div>
           <div style={{padding:"10px 8px", textAlign:"center"}}>
             <div style={s.label}>QUEDA</div>
-            <div style={{fontSize:16, fontWeight:700, color:"#1a1a2e"}}>S/{queda}</div>
+            <div style={{fontSize:16, fontWeight:700, color:"#dc2626"}}>S/{queda}</div>
           </div>
         </div>
       </div>
 
+      {/* BOTONES FIREBASE */}
+      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10,marginBottom:10}}>
+        <button
+          onClick={async () => {
+            try {
+              const { db } = await import("../firebase");
+              const { collection, addDoc, serverTimestamp } = await import("firebase/firestore");
+              await addDoc(collection(db, "registros"), {
+                fecha, encargado, talonarios, juegos, obs,
+                totalTickets, totalImporte,
+                yape: yape.toFixed(2),
+                queda,
+                creadoAt: serverTimestamp()
+              });
+              alert("✅ Registro guardado");
+            } catch(e) {
+              alert("❌ Error: " + e.message);
+            }
+          }}
+          style={{padding:"12px",background:"#16a34a",color:"#fff",border:"none",fontWeight:700,fontFamily:"'Courier New',monospace",cursor:"pointer",borderRadius:4,fontSize:13,boxShadow:"3px 3px 0 #14532d"}}
+        >
+          💾 GUARDAR DÍA
+        </button>
+        <button
+          onClick={() => onVerHistorial()}
+          style={{padding:"12px",background:"#1a1a2e",color:"#fff",border:"none",fontWeight:700,fontFamily:"'Courier New',monospace",cursor:"pointer",borderRadius:4,fontSize:13,boxShadow:"3px 3px 0 #000"}}
+        >
+          📋 HISTORIAL
+        </button>
+      </div>
+
+      {/* BOTÓN LIMPIAR */}
+      <button onClick={()=>{
+        if(window.confirm("¿Borrar todos los datos del día?")) limpiarTodo();
+      }} style={{width:"100%",padding:"12px",background:"#dc2626",color:"#fff",border:"none",fontFamily:"'Courier New',monospace",fontWeight:700,fontSize:13,cursor:"pointer",borderRadius:4,boxShadow:"3px 3px 0 #7f1d1d"}}>
+        🗑️ LIMPIAR PARA NUEVO DÍA
+      </button>
+
     </div>
   );
 }
-
-{/* BOTONES FIREBASE */}
-<div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10,marginBottom:10}}>
-  <button
-    onClick={async () => {
-      const { db } = await import("../firebase");
-      const { collection, addDoc, serverTimestamp } = await import("firebase/firestore");
-      await addDoc(collection(db, "registros"), {
-        fecha, encargado, talonarios, juegos, obs,
-        totalTickets, totalImporte,
-        yape: yape.toFixed(2),
-        queda,
-        creadoAt: serverTimestamp()
-      });
-      alert("✅ Registro guardado");
-    }}
-    style={{padding:"12px",background:"#16a34a",color:"#fff",border:"none",fontWeight:700,fontFamily:"'Courier New',monospace",cursor:"pointer",borderRadius:4,fontSize:13,boxShadow:"3px 3px 0 #14532d"}}
-  >
-    💾 GUARDAR DÍA
-  </button>
-  <button
-    onClick={() => onVerHistorial()}
-    style={{padding:"12px",background:"#1a1a2e",color:"#fff",border:"none",fontWeight:700,fontFamily:"'Courier New',monospace",cursor:"pointer",borderRadius:4,fontSize:13,boxShadow:"3px 3px 0 #000"}}
-  >
-    📋 HISTORIAL
-  </button>
-</div>
-<button onClick={()=>{
-  if(window.confirm("¿Borrar todos los datos del día?")) limpiarTodo();
