@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { db } from "../firebase";
-import { collection, getDocs, orderBy, query } from "firebase/firestore";
+import { collection, getDocs, orderBy, query, doc, deleteDoc } from "firebase/firestore";
 
 export default function Historial({ onVolver }) {
   const [registros, setRegistros] = useState([]);
   const [cargando, setCargando] = useState(true);
+  const [busqueda, setBusqueda] = useState("");
 
   useEffect(() => {
     const cargar = async () => {
@@ -15,6 +16,21 @@ export default function Historial({ onVolver }) {
     };
     cargar();
   }, []);
+
+  const borrarRegistro = async (id, fecha) => {
+    if(window.confirm(¿Borrar registro del ${fecha}?)) {
+      try {
+        await deleteDoc(doc(db, "registros", id));
+        setRegistros(registros.filter(x => x.id !== id));
+      } catch(e) {
+        alert("❌ Error: " + e.message);
+      }
+    }
+  };
+
+  const registrosFiltrados = registros.filter(r =>
+    !busqueda || (r.fecha && r.fecha.includes(busqueda))
+  );
 
   const s = {
     page: { minHeight:"100vh", background:"#e8e0d0", padding:"10px 8px", fontFamily:"'Courier New',monospace", boxSizing:"border-box" },
@@ -29,15 +45,33 @@ export default function Historial({ onVolver }) {
       <button onClick={onVolver} style={{marginBottom:12,padding:"10px",background:"#1a1a2e",color:"#fff",border:"none",fontFamily:"'Courier New',monospace",fontWeight:700,cursor:"pointer",borderRadius:4,width:"100%",fontSize:13}}>
         ← VOLVER
       </button>
-      <h2 style={{fontSize:13,fontWeight:700,marginBottom:12,letterSpacing:"0.08em"}}>HISTORIAL DE REGISTROS</h2>
+      <h2 style={{fontSize:13,fontWeight:700,marginBottom:8,letterSpacing:"0.08em"}}>HISTORIAL DE REGISTROS</h2>
+
+      {/* BUSCADOR */}
+      <input
+        type="text"
+        placeholder="Buscar por fecha (ej: 21/05/26)"
+        value={busqueda}
+        onChange={e=>setBusqueda(e.target.value)}
+        style={{width:"100%",padding:"10px",border:"2px solid #1a1a2e",borderRadius:4,fontFamily:"'Courier New',monospace",fontSize:13,marginBottom:12,boxSizing:"border-box",outline:"none"}}
+      />
 
       {cargando && <p>Cargando...</p>}
 
-      {registros.map(r => (
+      {registrosFiltrados.map(r => (
         <div key={r.id} style={{marginBottom:20}}>
 
-          {/* FECHA Y ENCARGADO */}
+          {/* FECHA Y ENCARGADO + BOTÓN BORRAR */}
           <div style={s.card}>
+            <div style={{display:"flex", justifyContent:"space-between", alignItems:"center", background:"#1a1a2e", padding:"4px 10px"}}>
+              <span style={{fontSize:11, fontWeight:700, color:"#fff"}}>📅 {r.fecha} — {r.encargado}</span>
+              <button
+                onClick={() => borrarRegistro(r.id, r.fecha)}
+                style={{background:"#dc2626",color:"#fff",border:"none",borderRadius:4,padding:"3px 8px",fontSize:10,fontWeight:700,cursor:"pointer",fontFamily:"'Courier New',monospace"}}
+              >
+                🗑️ BORRAR
+              </button>
+            </div>
             <div style={{display:"grid", gridTemplateColumns:"1fr 1fr", borderBottom:"2px solid #1a1a2e"}}>
               <div style={{padding:"8px 10px", borderRight:"1px solid #ccc"}}>
                 <div style={s.label}>FECHA</div>
@@ -129,8 +163,8 @@ export default function Historial({ onVolver }) {
         </div>
       ))}
 
-      {!cargando && registros.length === 0 && (
-        <p style={{textAlign:"center",color:"#888"}}>No hay registros aún</p>
+      {!cargando && registrosFiltrados.length === 0 && (
+        <p style={{textAlign:"center",color:"#888"}}>No hay registros{busqueda ? ` para "${busqueda}"` : " aún"}</p>
       )}
     </div>
   );
