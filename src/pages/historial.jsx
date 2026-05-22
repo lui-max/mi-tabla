@@ -42,7 +42,7 @@ export default function Historial({ onVolver }) {
 
   // ✅ BORRAR REGISTRO
   const borrarRegistro = async (id, fecha) => {
-    const ok = window.confirm(¿Borrar registro del ${fecha}?);
+    const ok = window.confirm(`¿Borrar registro del ${fecha}?`);
 
     if (!ok) return;
 
