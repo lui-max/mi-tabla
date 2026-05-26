@@ -65,12 +65,17 @@ export default function DataTable({ onVerHistorial }) {
       const snap = await getDocs(q);
 
       const datos = {
-        fecha, encargado, talonarios, juegos, obs,
-        totalTickets, totalImporte,
-        yape: yape.toFixed(2),
-        queda,
-        creadoAt: serverTimestamp()
-      };
+  fecha,
+  encargado,
+  talonarios: JSON.parse(JSON.stringify(talonarios)),
+  juegos: JSON.parse(JSON.stringify(juegos)),
+  obs: JSON.parse(JSON.stringify(obs)),
+  totalTickets,
+  totalImporte,
+  yape: yape.toFixed(2),
+  queda,
+  creadoAt: serverTimestamp()
+};
 
       if (!snap.empty) {
         await updateDoc(snap.docs[0].ref, datos);
