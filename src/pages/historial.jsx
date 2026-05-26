@@ -16,7 +16,7 @@ export default function Historial({ onVolver }) {
         const snap = await getDocs(q);
         setRegistros(snap.docs.map(d => ({ id: d.id, ...d.data() })));
       } catch(e) {
-        alert("❌ Error cargando: " + e.message);
+        alert("Error cargando: " + e.message);
       } finally {
         setCargando(false);
       }
@@ -29,9 +29,9 @@ export default function Historial({ onVolver }) {
     try {
       await deleteDoc(doc(db, "registros", id));
       setRegistros(prev => prev.filter(x => x.id !== id));
-      alert("✅ Registro eliminado");
+      alert("Registro eliminado");
     } catch(e) {
-      alert("❌ Error: " + e.message);
+      alert("Error: " + e.message);
     }
   };
 
@@ -50,7 +50,7 @@ export default function Historial({ onVolver }) {
   return (
     <div style={s.page}>
       <button onClick={onVolver} style={{marginBottom:12,padding:"10px",background:"#1a1a2e",color:"#fff",border:"none",fontFamily:"'Courier New',monospace",fontWeight:700,cursor:"pointer",borderRadius:4,width:"100%",fontSize:13}}>
-        ← VOLVER
+        VOLVER
       </button>
 
       <h2 style={{fontSize:13,fontWeight:700,marginBottom:8,letterSpacing:"0.08em"}}>HISTORIAL DE REGISTROS</h2>
@@ -65,7 +65,10 @@ export default function Historial({ onVolver }) {
 
       {cargando && <p>Cargando...</p>}
 
-      {registrosFiltrados.map(r => (
+      {registrosFiltrados.map(r => {
+        const total7 = (r.juegos||[]).reduce((s,row)=>s+(parseInt(row.tickets)||0),0);
+        const total6 = (r.juegos||[]).reduce((s,row)=>s+(parseInt(row.tickets6)||0),0);
+        return (
         <div key={r.id} style={{marginBottom:20}}>
 
           {/* FECHA + ENCARGADO + TALONARIOS */}
@@ -76,7 +79,7 @@ export default function Historial({ onVolver }) {
                 onClick={()=>borrarRegistro(r.id, r.fecha)}
                 style={{background:"#dc2626",color:"#fff",border:"none",borderRadius:4,padding:"3px 8px",fontSize:10,fontWeight:700,cursor:"pointer",fontFamily:"'Courier New',monospace"}}
               >
-                🗑️ BORRAR
+                BORRAR
               </button>
             </div>
             <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",borderBottom:"2px solid #1a1a2e"}}>
@@ -121,14 +124,15 @@ export default function Historial({ onVolver }) {
                   <div style={{padding:"6px 6px",fontSize:13,borderRight:"1px solid #eee"}}>{row.responsable}</div>
                   <div style={{padding:"6px 4px",fontSize:13,textAlign:"center",borderRight:"1px solid #eee"}}>{t7||""}</div>
                   <div style={{padding:"6px 4px",fontSize:13,textAlign:"center",borderRight:"1px solid #eee"}}>{t6||""}</div>
-                  <div style={{padding:"6px 6px",fontSize:13,textAlign:"right",fontWeight:700}}>{(t7*7+t6*6).toFixed(2)""}</div>
+                  <div style={{padding:"6px 6px",fontSize:13,textAlign:"right",fontWeight:700}}>{(t7*7+t6*6).toFixed(2)}</div>
                 </div>
               );
             })}
+            {/* TOTAL ROW - T7 y T6 separados */}
             <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 55px 55px 75px",background:"#f1f5f9",borderTop:"2px solid #1a1a2e"}}>
               <div style={{padding:"6px 6px",fontSize:10,fontWeight:700,color:"#888",gridColumn:"1/3"}}>TOTAL</div>
-              <div style={{padding:"6px 4px",fontSize:13,fontWeight:700,textAlign:"center",borderLeft:"1px solid #ccc",color:"#16a34a"}}>{r.totalTickets||""}</div>
-              <div style={{padding:"6px 4px",borderLeft:"1px solid #ccc"}}></div>
+              <div style={{padding:"6px 4px",fontSize:13,fontWeight:700,textAlign:"center",borderLeft:"1px solid #ccc",color:"#16a34a"}}>{total7||""}</div>
+              <div style={{padding:"6px 4px",fontSize:13,fontWeight:700,textAlign:"center",borderLeft:"1px solid #ccc"}}>{total6||""}</div>
               <div style={{padding:"6px 6px",fontSize:13,fontWeight:700,textAlign:"right",borderLeft:"1px solid #ccc"}}>{r.totalImporte?Number(r.totalImporte).toFixed(2):""}</div>
             </div>
           </div>
@@ -158,7 +162,7 @@ export default function Historial({ onVolver }) {
 
           {/* RESUMEN */}
           <div style={s.card}>
-            <span style={s.secTitle}>RESUMEN DEL DÍA</span>
+            <span style={s.secTitle}>RESUMEN DEL DIA</span>
             <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr"}}>
               <div style={{padding:"10px 8px",borderRight:"1px solid #eee",textAlign:"center"}}>
                 <div style={s.label}>TOTAL VENDIDO</div>
@@ -176,11 +180,12 @@ export default function Historial({ onVolver }) {
           </div>
 
         </div>
-      ))}
+        );
+      })}
 
       {!cargando && registrosFiltrados.length===0 && (
         <p style={{textAlign:"center",color:"#888"}}>
-          No hay registros{busqueda?` para "${busqueda}"`:" aún"}
+          {busqueda ? "No hay registros para " + busqueda : "No hay registros aun"}
         </p>
       )}
     </div>
