@@ -121,7 +121,7 @@ export default function Historial({ onVolver }) {
                   <div style={{padding:"6px 6px",fontSize:13,borderRight:"1px solid #eee"}}>{row.responsable}</div>
                   <div style={{padding:"6px 4px",fontSize:13,textAlign:"center",borderRight:"1px solid #eee"}}>{t7||""}</div>
                   <div style={{padding:"6px 4px",fontSize:13,textAlign:"center",borderRight:"1px solid #eee"}}>{t6||""}</div>
-                  <div style={{padding:"6px 6px",fontSize:13,textAlign:"right",fontWeight:700}}>{(t7*7+t6*6).toFixed(2)}</div>
+                  <div style={{padding:"6px 6px",fontSize:13,textAlign:"right",fontWeight:700}}>{(t7*7+t6*6).toFixed(2)""}</div>
                 </div>
               );
             })}
