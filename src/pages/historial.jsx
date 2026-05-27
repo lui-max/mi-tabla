@@ -82,7 +82,8 @@ export default function Historial({ onVolver }) {
     const totalYape = lista.reduce((s, r) => s + (parseFloat(r.yape) || 0), 0);
     const totalQueda = lista.reduce((s, r) => s + (parseFloat(r.queda) || 0), 0);
     const totalTickets = lista.reduce((s, r) => s + (Number(r.totalTickets) || 0), 0);
-    return { totalVendido, totalYape, totalQueda, totalTickets, dias: lista.length };
+    const totalFulbito = lista.reduce((s, r) => s + (Number(r.fulbito) || 0), 0);
+    return { totalVendido, totalYape, totalQueda, totalTickets, totalFulbito, dias: lista.length };
   };
 
   const s = {
@@ -204,7 +205,7 @@ export default function Historial({ onVolver }) {
                 </div>
                 <div style={s.card}>
                   <span style={s.secTitle}>RESUMEN DEL DIA</span>
-                  <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr 1fr"}}>
+                  <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr 1fr 1fr"}}>
                     <div style={{padding:"10px 8px",borderRight:"1px solid #eee",textAlign:"center"}}>
                       <div style={s.label}>TOTAL VENDIDO</div>
                       <div style={{fontSize:16,fontWeight:700,color:"#16a34a"}}>S/{r.totalImporte?Number(r.totalImporte).toFixed(2):"0.00"}</div>
