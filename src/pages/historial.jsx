@@ -204,7 +204,7 @@ export default function Historial({ onVolver }) {
                 </div>
                 <div style={s.card}>
                   <span style={s.secTitle}>RESUMEN DEL DIA</span>
-                  <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr"}}>
+                  <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr 1fr"}}>
                     <div style={{padding:"10px 8px",borderRight:"1px solid #eee",textAlign:"center"}}>
                       <div style={s.label}>TOTAL VENDIDO</div>
                       <div style={{fontSize:16,fontWeight:700,color:"#16a34a"}}>S/{r.totalImporte?Number(r.totalImporte).toFixed(2):"0.00"}</div>
@@ -213,10 +213,18 @@ export default function Historial({ onVolver }) {
                       <div style={s.label}>YAPE</div>
                       <div style={{fontSize:16,fontWeight:700}}>S/{r.yape||"0.00"}</div>
                     </div>
-                    <div style={{padding:"10px 8px",textAlign:"center"}}>
+                      <div style={{padding:"10px 8px",textAlign:"center"}}>
+
+                        <div style={{padding:"10px 8px",borderRight:"1px solid #eee",textAlign:"center"}}>
+  <div style={s.label}>FULBITO</div>
+  <div style={{fontSize:16,fontWeight:700,color:"#2563eb"}}>
+    S/{r.fulbito || "0.00"}
+  </div>
+</div>
                       <div style={s.label}>QUEDA</div>
                       <div style={{fontSize:16,fontWeight:700,color:"#dc2626"}}>S/{r.queda||"0.00"}</div>
                     </div>
+
                   </div>
                 </div>
               </div>
