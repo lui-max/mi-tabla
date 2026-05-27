@@ -21,12 +21,15 @@ export default function DataTable({ onVerHistorial }) {
     const g = localStorage.getItem("obs");
     return g ? JSON.parse(g) : [{ a: "", b: "" }, { a: "", b: "" }];
   });
+  const [fulbito, setFulbito] = useState(() => 
+     localStorage.getItem("fulbito") || "");
 
   useEffect(() => { localStorage.setItem("fecha", fecha); }, [fecha]);
   useEffect(() => { localStorage.setItem("encargado", encargado); }, [encargado]);
   useEffect(() => { localStorage.setItem("talonarios", JSON.stringify(talonarios)); }, [talonarios]);
   useEffect(() => { localStorage.setItem("juegos", JSON.stringify(juegos)); }, [juegos]);
   useEffect(() => { localStorage.setItem("obs", JSON.stringify(obs)); }, [obs]);
+  useEffect(() => { localStorage.setItem("fulbito", fulbito); }, [fulbito]);
 
   const actualizarTalonario = (i, campo, valor) => {
     const n = [...talonarios]; n[i] = { ...n[i], [campo]: valor }; setTalonarios(n);
@@ -70,6 +73,7 @@ export default function DataTable({ onVerHistorial }) {
   talonarios: JSON.parse(JSON.stringify(talonarios)),
   juegos: JSON.parse(JSON.stringify(juegos)),
   obs: JSON.parse(JSON.stringify(obs)),
+  fulbito: fulbito || "0.00",
   totalTickets,
   totalImporte,
   yape: yape.toFixed(2),
@@ -256,6 +260,23 @@ export default function DataTable({ onVerHistorial }) {
         </div>
       </div>
 
+      {/* FULBITO COSTA */}
+<div style={s.card}>
+  <span style={s.secTitle}>FULBITO COSTA</span>
+  <div style={{padding:"12px 10px"}}>
+    <div style={s.label}>INGRESO DEL DIA</div>
+    <div style={{display:"flex", alignItems:"center", gap:8, marginTop:4}}>
+      <span style={{fontSize:16, fontWeight:700}}>S/</span>
+      <input
+        value={fulbito}
+        onChange={e=>setFulbito(e.target.value)}
+        placeholder="0.00"
+        style={{...s.inp, fontSize:18, fontWeight:700, width:"100%"}}
+      />
+    </div>
+  </div>
+</div>
+
       {/* BOTONES FIREBASE */}
       <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10,marginBottom:10}}>
         <button
@@ -275,6 +296,8 @@ export default function DataTable({ onVerHistorial }) {
       {/* BOTÓN LIMPIAR */}
       <button onClick={()=>{
         if(window.confirm("¿Borrar todos los datos del día?")) limpiarTodo();
+        setFulbito("");
+        localStorage.removeItem("fulbito");
       }} style={{width:"100%",padding:"12px",background:"#dc2626",color:"#fff",border:"none",fontFamily:"'Courier New',monospace",fontWeight:700,fontSize:13,cursor:"pointer",borderRadius:4,boxShadow:"3px 3px 0 #7f1d1d"}}>
         🗑️ LIMPIAR PARA NUEVO DÍA
       </button>
