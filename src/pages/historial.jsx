@@ -215,12 +215,12 @@ export default function Historial({ onVolver }) {
                     </div>
                       <div style={{padding:"10px 8px",textAlign:"center"}}>
                       <div style={s.label}>QUEDA</div>
-                      <div style={{fontSize:16,fontWeight:700,color:"#dc2626"}}>S/{r.queda||"0.00"}</div>
-                    </div>
-                  </div>
+                      <div style={{fontSize:16,fontWeight:700,color:"#16a34a"}}>S/{r.queda||"0.00"}</div>
+                    </div>                  
                   <div style={{padding:"10px 8px",borderRight:"1px solid #eee",textAlign:"center"}}>
                       <div style={s.label}>FULBITO</div>
-                      <div style={{fontSize:16,fontWeight:700,color:"#2563eb"}}>S/{r.fulbito || "0.00"}</div>
+                      <div style={{fontSize:16,fontWeight:700,color:"#16a34a"}}>S/{r.fulbito || "0.00"}</div>
+                </div>
                 </div>
                 </div>
               </div>
