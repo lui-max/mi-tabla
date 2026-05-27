@@ -48,6 +48,7 @@ export default function DataTable({ onVerHistorial }) {
     localStorage.clear();
     setFecha("");
     setEncargado("");
+    setFulbito("");
     setTalonarios([filaVacia(), filaVacia(), filaVacia()]);
     setJuegos([
       { juego: "MIXTO",     responsable: "Luis",  tickets: "", tickets6: "" },
@@ -296,8 +297,6 @@ export default function DataTable({ onVerHistorial }) {
       {/* BOTÓN LIMPIAR */}
       <button onClick={()=>{
         if(window.confirm("¿Borrar todos los datos del día?")) limpiarTodo();
-        setFulbito("");
-        localStorage.removeItem("fulbito");
       }} style={{width:"100%",padding:"12px",background:"#dc2626",color:"#fff",border:"none",fontFamily:"'Courier New',monospace",fontWeight:700,fontSize:13,cursor:"pointer",borderRadius:4,boxShadow:"3px 3px 0 #7f1d1d"}}>
         🗑️ LIMPIAR PARA NUEVO DÍA
       </button>
