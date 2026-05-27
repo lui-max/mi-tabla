@@ -261,7 +261,8 @@ export default function Historial({ onVolver }) {
                     </div>
                     <div style={{textAlign:"center",borderRight:"1px solid #eee"}}>
                       <div style={s.label}>FULBITO</div>
-                      <div style={{fontSize:15,fontWeight:700}}>S/{res.totaLFulbito.toFixed(2)}</div>
+                      <div style={{fontSize:15,fontWeight:700}}>
+                        S/{res.totalFulbito.toFixed(2)}</div>
                     </div>
                     <div style={{textAlign:"center"}}>
                       <div style={s.label}>QUEDA</div>
