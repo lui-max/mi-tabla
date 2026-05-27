@@ -205,7 +205,7 @@ export default function Historial({ onVolver }) {
                 </div>
                 <div style={s.card}>
                   <span style={s.secTitle}>RESUMEN DEL DIA</span>
-                  <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr 1fr 1fr"}}>
+                  <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr 1fr"}}>
                     <div style={{padding:"10px 8px",borderRight:"1px solid #eee",textAlign:"center"}}>
                       <div style={s.label}>TOTAL VENDIDO</div>
                       <div style={{fontSize:16,fontWeight:700,color:"#16a34a"}}>S/{r.totalImporte?Number(r.totalImporte).toFixed(2):"0.00"}</div>
@@ -246,7 +246,7 @@ export default function Historial({ onVolver }) {
               return (
                 <div key={key} style={s.card}>
                   <span style={s.secTitle}>{titulo} — {res.dias} dia{res.dias!==1?"s":""}</span>
-                  <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr 1fr",padding:"10px 8px"}}>
+                  <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr 1fr 1fr",padding:"10px 8px"}}>
                     <div style={{textAlign:"center",borderRight:"1px solid #eee"}}>
                       <div style={s.label}>TICKETS</div>
                       <div style={{fontSize:15,fontWeight:700}}>{res.totalTickets}</div>
@@ -258,6 +258,10 @@ export default function Historial({ onVolver }) {
                     <div style={{textAlign:"center",borderRight:"1px solid #eee"}}>
                       <div style={s.label}>YAPE</div>
                       <div style={{fontSize:15,fontWeight:700}}>S/{res.totalYape.toFixed(2)}</div>
+                    </div>
+                    <div style={{textAlign:"center",borderRight:"1px solid #eee"}}>
+                      <div style={s.label}>FULBITO</div>
+                      <div style={{fontSize:15,fontWeight:700}}>S/{res.totaLFulbito.toFixed(2)}</div>
                     </div>
                     <div style={{textAlign:"center"}}>
                       <div style={s.label}>QUEDA</div>
