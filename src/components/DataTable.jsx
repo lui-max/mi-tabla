@@ -302,12 +302,11 @@ export default function DataTable({ onVerHistorial }) {
       }} style={{width:"100%",padding:"12px",background:"#dc2626",color:"#fff",border:"none",fontFamily:"'Courier New',monospace",fontWeight:700,fontSize:13,cursor:"pointer",borderRadius:4,boxShadow:"3px 3px 0 #7f1d1d"}}>
         🗑️ LIMPIAR PARA NUEVO DÍA
       </button>
-
-      <button onClick={() => signOut(auth)}>
-  Cerrar sesión
+      <button onClick={() =>  {signOut(auth)}} 
+        style={{width:"100%",padding:"12px",background: #fff ,color:"#dc2626",border:"none",fontFamily:"'Courier New',monospace",fontWeight:700,fontSize:13,cursor:"pointer",borderRadius:4,boxShadow:"3px 3px 0 #7f1d1d"}}>
+         CERRAR SESIÓN
 </button>
-
-    </div>
+</div>
 
     
   );
