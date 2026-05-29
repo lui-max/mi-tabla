@@ -205,7 +205,7 @@ export default function Historial({ onVolver }) {
                 </div>
                 <div style={s.card}>
                   <span style={s.secTitle}>RESUMEN DEL DIA</span>
-                  <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr 1fr"}}>
+                  <div style={{display:"grid",gridTemplateColumns:"2fr 1fr 1fr 1fr"}}>
                     <div style={{padding:"10px 8px",borderRight:"1px solid #eee",textAlign:"center"}}>
   <div style={s.label}>TOTAL VENDIDO</div>
 
