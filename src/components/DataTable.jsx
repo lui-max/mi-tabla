@@ -246,7 +246,7 @@ export default function DataTable({ onVerHistorial }) {
       {/* RESUMEN */}
       <div style={s.card}>
         <span style={s.secTitle}>RESUMEN DEL DÍA</span>        
-        <div style={{display:"grid", gridTemplateColumns:"1fr 1fr 1fr"}}>
+        <div style={{display:"grid", gridTemplateColumns:"2fr 1fr 1fr"}}>
           <div style={{padding:"10px 8px", borderRight:"1px solid #eee", textAlign:"center"}}>
             <div style={s.label}>TOTAL VENDIDO</div>
           <div style={{fontSize:11, color:"#555", lineHeight:"1.4"}}>
@@ -256,22 +256,24 @@ export default function DataTable({ onVerHistorial }) {
   <div>
     {totalTickets6} × S/6 = S/{(totalTickets6 * 6).toFixed(2)}
   </div>
-</div>
+
             <div style={{fontSize:16, fontWeight:700, color:"#1a1a2e"}}>
   S/{totalImporte.toFixed(2)}
+</div>
+</div>
 </div>
 
           <div style={{padding:"10px 8px", borderRight:"1px solid #eee", textAlign:"center"}}>
             <div style={s.label}>YAPE</div>
             <div style={{fontSize:16, fontWeight:700, color:"#1a1a2e"}}>S/{yape.toFixed(2)}</div>
           </div>
+          
           <div style={{padding:"10px 8px", textAlign:"center"}}>
             <div style={s.label}>EFECTIVO</div>
             <div style={{fontSize:16, fontWeight:700, color:"#dc2626"}}>S/{queda}</div>
           </div>
         </div>
-      </div>
-
+</div>
       {/* FULBITO COSTA */}
 <div style={s.card}>
   <span style={s.secTitle}>FULBITO COSTA</span>
@@ -288,6 +290,7 @@ export default function DataTable({ onVerHistorial }) {
     </div>
   </div>
 </div>
+
 
       {/* BOTONES FIREBASE */}
       <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10,marginBottom:10}}>
@@ -323,7 +326,7 @@ export default function DataTable({ onVerHistorial }) {
 </button>
 </div>
 </div>
-</div>
+
     
   );
   
