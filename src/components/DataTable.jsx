@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { signOut } from "firebase/auth";
+import { auth } from "../firebase";
 
 const filaVacia = () => ({ a: "", b: "", c: "" });
 
@@ -301,6 +303,12 @@ export default function DataTable({ onVerHistorial }) {
         🗑️ LIMPIAR PARA NUEVO DÍA
       </button>
 
+      <button onClick={() => signOut(auth)}>
+  Cerrar sesión
+</button>
+
     </div>
+
+    
   );
 }
