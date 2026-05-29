@@ -296,9 +296,10 @@ export default function DataTable({ onVerHistorial }) {
         </button>
       </div>
 
-      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10,marginBottom:10}}>
+      
 
       {/* BOTÓN LIMPIAR */}
+      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10,marginBottom:10}}>
       <button onClick={()=>{
         if(window.confirm("¿Borrar todos los datos del día?")) limpiarTodo();
       }} style={{padding:"12px",background:"#dc2626",color:"#fff",border:"none",fontFamily:"'Courier New',monospace",fontWeight:700,fontSize:13,cursor:"pointer",borderRadius:4,boxShadow:"3px 3px 0 #7f1d1d"}}
@@ -306,13 +307,15 @@ export default function DataTable({ onVerHistorial }) {
         🗑️ LIMPIAR PARA NUEVO DÍA
       </button>
       
-      <button onClick={() =>  {signOut(auth)}} 
+      <button onClick={() =>  signOut(auth)} 
         style={{padding:"12px",background: "#fff" ,color:"#dc2626",border:"none",fontFamily:"'Courier New',monospace",fontWeight:700,fontSize:13,cursor:"pointer",borderRadius:4,boxShadow:"3px 3px 0 #7f1d1d"}}
         >
         CERRAR SESIÓN
 </button>
 </div>
+</div>
 
     
   );
+  
 }
