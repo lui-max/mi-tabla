@@ -245,10 +245,7 @@ export default function DataTable({ onVerHistorial }) {
 
       {/* RESUMEN */}
       <div style={s.card}>
-        <span style={s.secTitle}>RESUMEN DEL DÍA</span>
-
-        
-        
+        <span style={s.secTitle}>RESUMEN DEL DÍA</span>        
         <div style={{display:"grid", gridTemplateColumns:"1fr 1fr 1fr"}}>
           <div style={{padding:"10px 8px", borderRight:"1px solid #eee", textAlign:"center"}}>
             <div style={s.label}>TOTAL VENDIDO</div>
@@ -326,7 +323,7 @@ export default function DataTable({ onVerHistorial }) {
 </button>
 </div>
 </div>
-
+</div>
     
   );
   
