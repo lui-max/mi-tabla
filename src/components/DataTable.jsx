@@ -296,6 +296,8 @@ export default function DataTable({ onVerHistorial }) {
         </button>
       </div>
 
+      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10,marginBottom:10}}>
+
       {/* BOTÓN LIMPIAR */}
       <button onClick={()=>{
         if(window.confirm("¿Borrar todos los datos del día?")) limpiarTodo();
