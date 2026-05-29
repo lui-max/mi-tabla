@@ -257,7 +257,7 @@ export default function DataTable({ onVerHistorial }) {
             <div style={{fontSize:16, fontWeight:700, color:"#1a1a2e"}}>S/{yape.toFixed(2)}</div>
           </div>
           <div style={{padding:"10px 8px", textAlign:"center"}}>
-            <div style={s.label}>QUEDA</div>
+            <div style={s.label}>EFECTIVO</div>
             <div style={{fontSize:16, fontWeight:700, color:"#dc2626"}}>S/{queda}</div>
           </div>
         </div>

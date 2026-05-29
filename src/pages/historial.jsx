@@ -215,7 +215,7 @@ export default function Historial({ onVolver }) {
                       <div style={{fontSize:16,fontWeight:700}}>S/{r.yape||"0.00"}</div>
                     </div>
                       <div style={{padding:"10px 8px",textAlign:"center"}}>
-                      <div style={s.label}>QUEDA</div>
+                      <div style={s.label}>EFECTIVO</div>
                       <div style={{fontSize:16,fontWeight:700,color:"#16a34a"}}>S/{r.queda||"0.00"}</div>
                     </div>                  
                   <div style={{padding:"10px 8px",borderRight:"1px solid #eee",textAlign:"center"}}>
@@ -259,14 +259,14 @@ export default function Historial({ onVolver }) {
                       <div style={s.label}>YAPE</div>
                       <div style={{fontSize:15,fontWeight:700}}>S/{res.totalYape.toFixed(2)}</div>
                     </div>
+                      <div style={{textAlign:"center"}}>
+                      <div style={s.label}>EFECTIVO</div>
+                      <div style={{fontSize:15,fontWeight:700,color:"#dc2626"}}>S/{res.totalQueda.toFixed(2)}</div>
+                    </div>
                     <div style={{textAlign:"center",borderRight:"1px solid #eee"}}>
                       <div style={s.label}>FULBITO</div>
                       <div style={{fontSize:15,fontWeight:700}}>
                         S/{res.totalFulbito.toFixed(2)}</div>
-                    </div>
-                    <div style={{textAlign:"center"}}>
-                      <div style={s.label}>QUEDA</div>
-                      <div style={{fontSize:15,fontWeight:700,color:"#dc2626"}}>S/{res.totalQueda.toFixed(2)}</div>
                     </div>
                   </div>
                   <div style={{borderTop:"1px solid #eee"}}>
