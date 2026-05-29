@@ -207,9 +207,32 @@ export default function Historial({ onVolver }) {
                   <span style={s.secTitle}>RESUMEN DEL DIA</span>
                   <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr 1fr"}}>
                     <div style={{padding:"10px 8px",borderRight:"1px solid #eee",textAlign:"center"}}>
-                      <div style={s.label}>TOTAL VENDIDO</div>
-                      <div style={{fontSize:16,fontWeight:700,color:"#16a34a"}}>S/{r.totalImporte?Number(r.totalImporte).toFixed(2):"0.00"}</div>
-                    </div>
+  <div style={s.label}>TOTAL VENDIDO</div>
+
+  <div style={{fontSize:12,color:"#555",lineHeight:"18px"}}>
+    {total7} × S/7 =
+  </div>
+
+  <div style={{fontSize:13,fontWeight:700,color:"#1a1a2e"}}>
+    S/{(total7 * 7).toFixed(2)}
+  </div>
+
+  {total6 > 0 && (
+  <>
+    <div style={{fontSize:12,color:"#555",lineHeight:"18px",marginTop:4}}>
+      {total6} × S/6 =
+    </div>
+
+    <div style={{fontSize:13,fontWeight:700,color:"#1a1a2e"}}>
+      S/{(total6 * 6).toFixed(2)}
+    </div>
+  </>
+)}
+
+  <div style={{fontSize:18,fontWeight:700,color:"#16a34a",marginTop:6}}>
+    S/{r.totalImporte ? Number(r.totalImporte).toFixed(2) : "0.00"}
+  </div>
+</div>
                     <div style={{padding:"10px 8px",borderRight:"1px solid #eee",textAlign:"center"}}>
                       <div style={s.label}>YAPE</div>
                       <div style={{fontSize:16,fontWeight:700}}>S/{r.yape||"0.00"}</div>
